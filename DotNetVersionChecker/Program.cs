@@ -8,6 +8,7 @@ namespace DotNetVersionChecker
     {
         static void Main(string[] args)
         {
+
             var version = Get45Version();
 
             if (string.IsNullOrEmpty(version))
@@ -44,11 +45,18 @@ RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP
                 {
                     return ".NET Framework 4.5.2";
                 }
-                if (releaseKey > 379893)
+                if (releaseKey == 381023)
                 {
-                    return string.Format("A later version than 4.5.2 ({0})", releaseKey);
+                    return ".NET Framework shipped with Windows 10 Technical Preview. 1 increment from 4.6 Preview";
                 }
-
+                if (releaseKey == 381024)
+                {
+                    return ".NET Framework 4.6 Preview";
+                }
+                if (releaseKey > 381024)
+                {
+                    return string.Format("A later version than 4.6 Preview ({0})", releaseKey);
+                }
                 return string.Empty;
             }
         }
