@@ -9,7 +9,7 @@ namespace DotNetVersionChecker
         static void Main(string[] args)
         {
 
-            var version = Get45Version();
+            var version = Get4XVersion();
 
             if (string.IsNullOrEmpty(version))
             {
@@ -19,7 +19,7 @@ namespace DotNetVersionChecker
             Console.ReadKey();
         }
 
-        private static string Get45Version()
+        private static string Get4XVersion()
         {
             using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,
 RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\"))
@@ -53,9 +53,17 @@ RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP
                 {
                     return ".NET Framework 4.6 Preview";
                 }
-                if (releaseKey > 381024)
+                if (releaseKey == 393295)
                 {
-                    return string.Format("A later version than 4.6 Preview ({0})", releaseKey);
+                    return ".NET Framework 4.6 on Windows 10";
+                }
+                if (releaseKey == 393297)
+                {
+                    return ".NET Framework 4.6";
+                }
+                if (releaseKey > 393297)
+                {
+                    return string.Format("A later version than 4.6 ({0})", releaseKey);
                 }
                 return string.Empty;
             }
